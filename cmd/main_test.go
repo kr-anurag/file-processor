@@ -3,16 +3,16 @@ package main
 import (
 	"file-processor/internal/processor"
 	"file-processor/internal/service"
-	"github.com/stretchr/testify/assert"
 	"os"
 	"path/filepath"
 	"strings"
 	"testing"
+
+	"github.com/stretchr/testify/assert"
 )
 
 func TestProcessFile(t *testing.T) {
-	//dir := t.TempDir()
-
+	// dir := t.TempDir()
 	dir := "./../sample-files/"
 	if _, err := os.Stat(dir); os.IsNotExist(err) {
 		err := os.Mkdir(dir, 0755)
@@ -53,7 +53,7 @@ func TestProcessFile(t *testing.T) {
 		{"Success Whitespace Text", "whitespace.txt", 2, 0, false},
 		{"Success Special Characters", "special_chars.txt", 2, 2, false},
 		{"Success Large File", "large.txt", 50001, 60000, false},
-		//{"Error Missing Text", "missing.txt", 0, 0, true},
+		// {"Error Missing Text", "missing.txt", 0, 0, true},
 	}
 
 	for _, tt := range tests {

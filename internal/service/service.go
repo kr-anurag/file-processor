@@ -12,14 +12,17 @@ type FileProcessorService struct {
 
 func (c *FileProcessorService) ProcessFiles(files []string) []processor.FileSummary {
 	var wg sync.WaitGroup
+
 	results := make(chan processor.FileSummary, len(files))
 
 	for _, file := range files {
 		wg.Add(1)
+
 		go func(file string) {
 			defer wg.Done()
-			processor := &processor.TextFileProcessor{}
-			results <- processor.Process(file)
+
+			p := &processor.TextFileProcessor{}
+			results <- p.Process(file)
 		}(file)
 	}
 
@@ -30,5 +33,6 @@ func (c *FileProcessorService) ProcessFiles(files []string) []processor.FileSumm
 	for result := range results {
 		summaries = append(summaries, result)
 	}
+
 	return summaries
 }
